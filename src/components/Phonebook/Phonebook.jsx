@@ -1,17 +1,28 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { ContactForm } from './ContactForm';
 import { Filter } from './Filter';
 import { ContactList } from './ContactList';
 
 import { Wrapper } from './Phonebook.styled';
 import { Title } from './Phonebook.styled';
-import { getContacts } from 'utils/getContacts';
+// import { getContacts } from 'utils/getContacts';
+
+// REDUX
+import { useSelector, useDispatch } from 'react-redux';
+
+import { getContacts, getFilter } from '../../redux/selectors';
+import { addContact, deleteContact } from '../../redux/contacts/contactsSlice';
+import { updateFilter } from 'redux/filter/filterSlice';
+import { nanoid } from 'nanoid';
 
 const lSKey = 'contacts-data-key';
 export const Phonebook = () => {
-  const [contacts, setContacts] = useState(() => getContacts(lSKey));
+  // const [contacts, setContacts] = useState(() => getContacts(lSKey));
+  // const [filter, setFilter] = useState('');
 
-  const [filter, setFilter] = useState('');
+  const dispatch = useDispatch();
+  const contacts = useSelector(getContacts);
+  const filter = useSelector(getFilter);
 
   useEffect(() => {
     localStorage.setItem(lSKey, JSON.stringify(contacts));
@@ -32,23 +43,18 @@ export const Phonebook = () => {
     if (inContacts) {
       return alert('Type another name or number');
     }
-    setContacts(prevState => {
-      return [...prevState.map(item => item), values];
-    });
+    // setContacts(prevState => {
+    //   return [...prevState.map(item => item), values];
+    // });
+    dispatch(addContact({ ...values, id: nanoid() }));
 
     resetForm();
   };
   const onInput = e => {
     const input = e.currentTarget.value;
-    setFilter(input);
+    // setFilter(input);
+    dispatch(updateFilter(input));
   };
-  const onDelete = id => {
-    setContacts(prevState => {
-      const filteredContacts = prevState.filter(contact => contact.id !== id);
-      return filteredContacts;
-    });
-  };
-
   return (
     <Wrapper>
       <Title>Phonebook</Title>
@@ -58,7 +64,7 @@ export const Phonebook = () => {
         <>
           <h2 style={{ marginBottom: 10 }}>Contacts</h2>
           <Filter onInput={onInput} />
-          <ContactList contacts={filteredContacts} onDelete={onDelete} />
+          <ContactList contacts={filteredContacts} />
         </>
       )}
     </Wrapper>
