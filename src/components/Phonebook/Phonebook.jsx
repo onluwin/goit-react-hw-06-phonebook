@@ -11,7 +11,7 @@ import { Title } from './Phonebook.styled';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { getContacts, getFilter } from '../../redux/selectors';
-import { addContact, deleteContact } from '../../redux/contacts/contactsSlice';
+import { addContact } from '../../redux/contacts/contactsSlice';
 import { updateFilter } from 'redux/filter/filterSlice';
 import { nanoid } from 'nanoid';
 
