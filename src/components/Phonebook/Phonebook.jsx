@@ -1,11 +1,11 @@
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { ContactForm } from './ContactForm';
 import { Filter } from './Filter';
 import { ContactList } from './ContactList';
 
 import { Wrapper } from './Phonebook.styled';
 import { Title } from './Phonebook.styled';
-// import { getContacts } from 'utils/getContacts';
+// import { initContacts } from 'utils/getContacts';
 
 // REDUX
 import { useSelector, useDispatch } from 'react-redux';
@@ -15,7 +15,6 @@ import { addContact } from '../../redux/contacts/contactsSlice';
 import { updateFilter } from 'redux/filter/filterSlice';
 import { nanoid } from 'nanoid';
 
-const lSKey = 'contacts-data-key';
 export const Phonebook = () => {
   // const [contacts, setContacts] = useState(() => getContacts(lSKey));
   // const [filter, setFilter] = useState('');
@@ -23,10 +22,6 @@ export const Phonebook = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(getContacts);
   const filter = useSelector(getFilter);
-
-  useEffect(() => {
-    localStorage.setItem(lSKey, JSON.stringify(contacts));
-  }, [contacts]);
 
   let filteredContacts = useMemo(() => {
     return contacts.filter(item =>
@@ -60,12 +55,14 @@ export const Phonebook = () => {
       <Title>Phonebook</Title>
       <ContactForm onSubmit={onSubmit} />
 
-      {contacts.length !== 0 && (
+      {contacts.length !== 0 ? (
         <>
           <h2 style={{ marginBottom: 10 }}>Contacts</h2>
           <Filter onInput={onInput} />
           <ContactList contacts={filteredContacts} />
         </>
+      ) : (
+        <h3>You have 0 contacts.</h3>
       )}
     </Wrapper>
   );

@@ -14,7 +14,6 @@ export const ContactList = ({ contacts, onDelete }) => {
   return (
     <List>
       {data.map(item => {
-        console.log(item);
         return (
           <ContactItem key={item.id}>
             {item.name}: {item.number} {''}
