@@ -1,32 +1,39 @@
-import { useMemo } from 'react';
+import { useEffect } from 'react';
 import { ContactForm } from './Phonebook/ContactForm';
 import { Filter } from './Phonebook/Filter';
 import { ContactList } from './Phonebook/ContactList';
 
 import { Wrapper, Title } from './Phonebook/Phonebook.styled';
-// import { initContacts } from 'utils/getContacts';
 
 // REDUX
 import { useSelector, useDispatch } from 'react-redux';
 
-import { getContacts, getFilter } from '../redux/selectors';
-import { addContact } from '../redux/contacts/contactsSlice';
+import {
+  selectContacts,
+  // selectIsLoading,
+  // selectContactsError,
+  selectFilteredContacts,
+} from '../redux/selectors';
 import { updateFilter } from '../redux/filter/filterSlice';
-import { nanoid } from 'nanoid';
+import { addContact, fetchContacts } from 'redux/contacts/operations';
+import axios from 'axios';
 
 export const App = () => {
-  // const [contacts, setContacts] = useState(() => getContacts(lSKey));
-  // const [filter, setFilter] = useState('');
-
   const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
-  const filter = useSelector(getFilter);
 
-  let filteredContacts = useMemo(() => {
-    return contacts.filter(item =>
-      item.name.toLowerCase().includes(filter.toLowerCase())
-    );
-  }, [contacts, filter]);
+  const contacts = useSelector(selectContacts);
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+    const x = async () => {
+      const { ip } = await axios.get('https://ipapi.co/json/');
+      console.log('ip', ip);
+      return ip;
+    };
+    x();
+  }, [dispatch]);
+
+  let filteredContacts = useSelector(selectFilteredContacts);
 
   const onSubmit = (values, { resetForm }) => {
     const inContacts = contacts.some(
@@ -37,16 +44,12 @@ export const App = () => {
     if (inContacts) {
       return alert('Type another name or number');
     }
-    // setContacts(prevState => {
-    //   return [...prevState.map(item => item), values];
-    // });
-    dispatch(addContact({ ...values, id: nanoid() }));
+    dispatch(addContact({ ...values }));
 
     resetForm();
   };
   const onInput = e => {
     const input = e.currentTarget.value;
-    // setFilter(input);
     dispatch(updateFilter(input));
   };
   return (

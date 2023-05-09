@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 // import { nanoid } from 'nanoid/non-secure';
 
-import { deleteContact } from '../../redux/contacts/contactsSlice';
+import { deleteContact } from '../../redux/contacts/operations';
 
 import { List } from './Phonebook.styled';
 import { ContactItem } from './Phonebook.styled';
