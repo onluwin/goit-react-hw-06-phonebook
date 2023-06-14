@@ -2,10 +2,10 @@ import { Formik, Form } from 'formik';
 
 import { SubmitButton } from './SubmitButton';
 
-import { InputName, InputTel } from './Phonebook.styled';
+import { InputName, InputTel } from '../Phonebook.styled';
 
 export const ContactForm = ({ onSubmit }) => {
-  const initialValues = { name: '', number: '' };
+  const initialValues = { name: '', phone: '' };
   return (
     <Formik initialValues={initialValues} onSubmit={onSubmit}>
       <Form
@@ -28,7 +28,7 @@ export const ContactForm = ({ onSubmit }) => {
         <p>Number</p>
         <InputTel
           type="tel"
-          name="number"
+          name="phone"
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required

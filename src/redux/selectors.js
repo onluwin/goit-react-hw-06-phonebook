@@ -8,10 +8,14 @@ export const selectFilter = state => state.filter;
 export const selectFilteredContacts = state => {
   const filter = selectFilter(state);
   const contacts = selectContacts(state);
-  console.log('contacts', contacts);
   if (contacts.length > 0) {
     return contacts.filter(item =>
       item.name.toLowerCase().includes(filter.toLowerCase())
     );
   }
 };
+
+export const selectIsLoggedIn = state => state.auth.isLoggedIn;
+
+export const selectIsFetchingCurrentUser = state =>
+  state.auth.isFetchingCurrentUser;

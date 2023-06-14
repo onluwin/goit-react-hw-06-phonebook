@@ -3,13 +3,10 @@ import { fetchContacts, deleteContact, addContact } from './operations';
 
 const handlePending = state => {
   state.isLoading = true;
-  console.log('pending');
 };
 const handleReject = (state, { payload }) => {
   state.isLoading = false;
   state.erorr = payload.message;
-  console.log('payload', payload);
-  console.log('rejected');
 };
 
 const contactsSlice = createSlice({
