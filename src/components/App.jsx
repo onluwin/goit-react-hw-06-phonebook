@@ -34,10 +34,12 @@ export const App = () => {
   let filteredContacts = useSelector(selectFilteredContacts);
 
   const onContactsSubmit = (values, { resetForm }) => {
-    const inContacts = contacts.some(
-      item =>
-        item.number === values.number || item.name.toLowerCase() === values.name
-    );
+    const inContacts = contacts.some(item => {
+      console.log('item in contacts: ', item);
+      return (
+        item.phone === values.phone || item.name.toLowerCase() === values.name
+      );
+    });
 
     if (inContacts) {
       return alert('Type another name or number');
