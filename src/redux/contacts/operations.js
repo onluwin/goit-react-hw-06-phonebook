@@ -10,8 +10,8 @@ export const fetchContacts = createAsyncThunk('contacts/fetchAll', async () => {
 export const deleteContact = createAsyncThunk(
   'contacts/deleteContact',
   async id => {
-    const { data } = await axios.delete(`/contacts/${id}`);
-    return data;
+    await axios.delete(`/contacts/${id}`);
+    return id;
   }
 );
 

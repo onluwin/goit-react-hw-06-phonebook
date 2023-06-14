@@ -35,7 +35,6 @@ export const App = () => {
 
   const onContactsSubmit = (values, { resetForm }) => {
     const inContacts = contacts.some(item => {
-      console.log('item in contacts: ', item);
       return (
         item.phone === values.phone || item.name.toLowerCase() === values.name
       );
