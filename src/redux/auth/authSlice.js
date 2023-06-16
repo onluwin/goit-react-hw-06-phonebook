@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { login, logout, refreshUser, register } from './operations';
+import { toast } from 'react-hot-toast';
 
 const initialState = {
   user: { name: '', email: '' },
@@ -7,14 +8,17 @@ const initialState = {
   isLoggedIn: false,
   isFetchingCurrentUser: false,
 };
+
 const authSlice = createSlice(
   {
     name: 'auth',
     initialState: initialState,
     extraReducers: {
-      [register.pending](state) {},
-      [register.fulfilled](state, { payload }) {
-        state.token = payload;
+      [register.pending]() {},
+      [register.fulfilled]() {
+        toast.success('Вы успешно создали новый аккаунт', {
+          position: 'bottom-right',
+        });
       },
 
       [login.pending]() {},
@@ -22,23 +26,31 @@ const authSlice = createSlice(
         state.user = { ...payload.user };
         state.isLoggedIn = true;
         state.token = payload.token;
+        toast.success('Вы успешно вошли в аккаунт', {
+          position: 'bottom-right',
+        });
       },
 
       [logout.pending]() {},
-      [logout.fulfilled](state, { payload }) {
+      [logout.fulfilled](state) {
         state.isLoggedIn = false;
         state.user = { ...initialState.user };
         state.token = null;
+        toast.success('Вы успешно вышли из аккаунта', {
+          position: 'bottom-right',
+        });
       },
 
       [refreshUser.pending](state) {
         state.isFetchingCurrentUser = true;
       },
       [refreshUser.fulfilled](state, { payload }) {
-        console.log('refreshed user:', payload);
         state.user = { ...payload };
         state.isLoggedIn = true;
         state.isFetchingCurrentUser = false;
+        toast.success(`Welcome back, ${state.user.email}`, {
+          position: 'bottom-right',
+        });
       },
       [refreshUser.rejected](state) {
         state.isLoggedIn = false;

@@ -1,3 +1,9 @@
+import { Heading } from '@chakra-ui/react';
+
 export const Home = () => {
-  return <h2>Home page</h2>;
+  return (
+    <Heading display={'flex'} justifyContent={'center'} mt={'30px'}>
+      Home page
+    </Heading>
+  );
 };

@@ -1,8 +1,7 @@
 import { Formik, Form } from 'formik';
 
-import { SubmitButton } from './SubmitButton';
-
 import { InputName, InputTel } from '../Phonebook.styled';
+import { Button, Heading, Input } from '@chakra-ui/react';
 
 export const ContactForm = ({ onSubmit }) => {
   const initialValues = { name: '', phone: '' };
@@ -10,15 +9,18 @@ export const ContactForm = ({ onSubmit }) => {
     <Formik initialValues={initialValues} onSubmit={onSubmit}>
       <Form
         style={{
-          width: 230,
+          width: 450,
           marginBottom: 20,
-          border: '1px solid black',
           padding: 10,
         }}
         autoComplete="off"
       >
+        <Heading display={'flex'} justifyContent={'center'} mb={'10px'}>
+          Add new contact
+        </Heading>
         <p>Name</p>
         <InputName
+          as={Input}
           type="text"
           name="name"
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -27,13 +29,16 @@ export const ContactForm = ({ onSubmit }) => {
         />
         <p>Number</p>
         <InputTel
+          as={Input}
           type="tel"
           name="phone"
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
         />
-        <SubmitButton />
+        <Button width={'100%'} colorScheme="blue" type="submit">
+          Submit
+        </Button>
       </Form>
     </Formik>
   );

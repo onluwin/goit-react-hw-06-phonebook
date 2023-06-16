@@ -20,6 +20,7 @@ import { SignupForm } from 'pages/SignupForm/SignupForm';
 import { Home } from 'pages/Home/Home';
 import { PrivateRoute } from 'Utils/PrivateRoute';
 import { PublicRoute } from 'Utils/PublicRoute';
+import { Toaster, toast } from 'react-hot-toast';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -44,6 +45,7 @@ export const App = () => {
       return alert('Type another name or number');
     }
     dispatch(addContact({ ...values }));
+    toast.success('Новый контакт добавлен', { position: 'bottom-right' });
 
     resetForm();
   };
@@ -96,6 +98,7 @@ export const App = () => {
           </Routes>
         </>
       )}
+      <Toaster />
     </>
   );
 };

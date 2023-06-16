@@ -1,3 +1,4 @@
+import { Box, Heading, Text } from '@chakra-ui/react';
 import { ContactForm } from 'components/Phonebook/Contacts/ContactForm';
 import { ContactList } from 'components/Phonebook/Contacts/ContactList';
 import { Filter } from 'components/Phonebook/Filter';
@@ -16,17 +17,21 @@ export const Contacts = ({
     dispatch(fetchContacts());
   }, [dispatch]);
   return (
-    <>
-      <ContactForm onSubmit={onContactsFormSubmit} />
-      {contacts.length !== 0 ? (
-        <>
-          <h2 style={{ marginBottom: 10 }}>Contacts</h2>
-          <Filter onInput={onInput} />
-          <ContactList contacts={filteredContacts} />
-        </>
-      ) : (
-        <h3>You have 0 contacts.</h3>
-      )}
-    </>
+    <Box display={'flex'} justifyContent={'center'} alignItems={'center'}>
+      <Box maxW={'500px'} p={'30px'}>
+        <ContactForm onSubmit={onContactsFormSubmit} />
+        {contacts.length !== 0 ? (
+          <>
+            <Heading mb={'10px'} size={'lg'}>
+              Contacts
+            </Heading>
+            {contacts.length > 1 && <Filter onInput={onInput} />}
+            <ContactList contacts={filteredContacts} />
+          </>
+        ) : (
+          <Text fontSize={'20px'}>You have 0 contacts.</Text>
+        )}
+      </Box>
+    </Box>
   );
 };

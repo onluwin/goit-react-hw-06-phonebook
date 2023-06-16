@@ -33,4 +33,5 @@ export const List = styled.ul``;
 
 export const ContactItem = styled.li`
   font-size: 18px;
+  margin-bottom: 10px;
 `;

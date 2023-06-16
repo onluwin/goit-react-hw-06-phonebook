@@ -1,3 +1,5 @@
+import { Box, Button, Input } from '@chakra-ui/react';
+
 import { Field, Form, Formik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { register } from 'redux/auth/operations';
@@ -7,27 +9,37 @@ export const SignupForm = () => {
 
   const initialValues = { email: '', password: '' };
 
-  const onSubmit = (values, actions) => {
+  const onSubmit = async (values, actions) => {
     dispatch(register(values));
     actions.resetForm();
   };
 
   return (
     <>
-      <h3>Sign up form</h3>
-      <Formik initialValues={initialValues} onSubmit={onSubmit}>
-        <Form>
-          <label>
-            Email
-            <Field name="email" />
-          </label>
-          <label>
-            Password
-            <Field name="password" />
-          </label>
-          <button type="submit">Sign up</button>
-        </Form>
-      </Formik>
+      <Box display={'flex'} justifyContent={'center'} mt={'25px'}>
+        <Box maxW={{ base: '250px', md: '450px', lg: '500px' }}>
+          <Formik initialValues={initialValues} onSubmit={onSubmit}>
+            <Form>
+              <label>
+                Email
+                <Field as={Input} name="email" />
+              </label>
+              <label>
+                Password
+                <Field as={Input} name="password" />
+              </label>
+              <Button
+                colorScheme="blue"
+                mt={'15px'}
+                width={'100%'}
+                type="submit"
+              >
+                Sign up
+              </Button>
+            </Form>
+          </Formik>
+        </Box>
+      </Box>
     </>
   );
 };
