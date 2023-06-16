@@ -40,14 +40,6 @@ export const Header = () => {
         {isLoggedIn ? (
           <>
             <Button
-              colorScheme="blue"
-              mr={{ sm: '5px', md: '5px', lg: '15px' }}
-            >
-              <Link to={'/contacts'} as={Button}>
-                Contacts
-              </Link>
-            </Button>
-            <Button
               colorScheme="red"
               type="button"
               onClick={() => {

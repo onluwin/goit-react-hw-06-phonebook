@@ -20,7 +20,7 @@ import { SignupForm } from 'pages/SignupForm/SignupForm';
 import { Home } from 'pages/Home/Home';
 import { PrivateRoute } from 'Utils/PrivateRoute';
 import { PublicRoute } from 'Utils/PublicRoute';
-import { Toaster, toast } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -34,7 +34,7 @@ export const App = () => {
 
   let filteredContacts = useSelector(selectFilteredContacts);
 
-  const onContactsSubmit = (values, { resetForm }) => {
+  const onContactsSubmit = async (values, { resetForm }) => {
     const inContacts = contacts.some(item => {
       return (
         item.phone === values.phone || item.name.toLowerCase() === values.name
@@ -45,7 +45,6 @@ export const App = () => {
       return alert('Type another name or number');
     }
     dispatch(addContact({ ...values }));
-    toast.success('Новый контакт добавлен', { position: 'bottom-right' });
 
     resetForm();
   };

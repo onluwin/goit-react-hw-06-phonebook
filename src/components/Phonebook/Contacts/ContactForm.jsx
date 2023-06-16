@@ -1,9 +1,12 @@
 import { Formik, Form } from 'formik';
 
 import { InputName, InputTel } from '../Phonebook.styled';
-import { Button, Heading, Input } from '@chakra-ui/react';
+import { Button, Heading, Input, Spinner } from '@chakra-ui/react';
+import { useSelector } from 'react-redux';
+import { selectIsLoading } from 'redux/selectors';
 
 export const ContactForm = ({ onSubmit }) => {
+  const isLoading = useSelector(selectIsLoading);
   const initialValues = { name: '', phone: '' };
   return (
     <Formik initialValues={initialValues} onSubmit={onSubmit}>

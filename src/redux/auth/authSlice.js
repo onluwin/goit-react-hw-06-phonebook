@@ -6,7 +6,8 @@ const initialState = {
   user: { name: '', email: '' },
   token: null,
   isLoggedIn: false,
-  isFetchingCurrentUser: false,
+  isFetchingCurrentUser: true,
+  isLoading: false,
 };
 
 const authSlice = createSlice(
@@ -14,14 +15,18 @@ const authSlice = createSlice(
     name: 'auth',
     initialState: initialState,
     extraReducers: {
-      [register.pending]() {},
+      [register.pending](state) {
+        state.isLoading = true;
+      },
       [register.fulfilled]() {
         toast.success('Вы успешно создали новый аккаунт', {
           position: 'bottom-right',
         });
       },
 
-      [login.pending]() {},
+      [login.pending](state) {
+        state.isLoading = true;
+      },
       [login.fulfilled](state, { payload }) {
         state.user = { ...payload.user };
         state.isLoggedIn = true;
@@ -31,7 +36,9 @@ const authSlice = createSlice(
         });
       },
 
-      [logout.pending]() {},
+      [logout.pending](state) {
+        state.isLoading = true;
+      },
       [logout.fulfilled](state) {
         state.isLoggedIn = false;
         state.user = { ...initialState.user };

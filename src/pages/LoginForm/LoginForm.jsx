@@ -1,13 +1,16 @@
-import { Button, Input, Box } from '@chakra-ui/react';
+import { Button, Input, Box, Spinner } from '@chakra-ui/react';
 
 import { Field, Formik, Form } from 'formik';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { login } from 'redux/auth/operations';
+import { selectIsAuthLoading } from 'redux/selectors';
 
 export const LoginForm = () => {
+  const dispatch = useDispatch();
+  const isLoading = useSelector(selectIsAuthLoading);
+
   const initialValues = { email: '', password: '' };
 
-  const dispatch = useDispatch();
   const onSubmit = (values, actions) => {
     dispatch(login(values));
     actions.resetForm();
@@ -33,7 +36,7 @@ export const LoginForm = () => {
                 width={'100%'}
                 type="submit"
               >
-                Login
+                {isLoading ? <Spinner /> : 'Login'}
               </Button>
             </Form>
           </Formik>
