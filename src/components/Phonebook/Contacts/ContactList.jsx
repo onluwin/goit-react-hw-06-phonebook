@@ -1,11 +1,10 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { deleteContact } from '../../../redux/contacts/operations';
 
 import { List } from '../Phonebook.styled';
 import { ContactItem } from '../Phonebook.styled';
-import { Button, Spinner, Text } from '@chakra-ui/react';
-import { selectIsLoading } from 'redux/selectors';
+import { Button, Text } from '@chakra-ui/react';
 
 export const ContactList = ({ contacts }) => {
   const dispatch = useDispatch();

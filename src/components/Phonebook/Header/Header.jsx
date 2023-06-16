@@ -2,9 +2,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { LoginBtn } from './AuthBtns/LoginBtn';
 import { SignupBtn } from './AuthBtns/SignupBtn';
 import { selectIsLoggedIn, selectUserEmail } from 'redux/selectors';
-import { Link } from 'react-router-dom';
 import { logout } from 'redux/auth/operations';
-import { Box, Button, Flex, Text } from '@chakra-ui/react';
+import { Box, Button, Text } from '@chakra-ui/react';
 
 export const Header = () => {
   const userEmail = useSelector(selectUserEmail);
